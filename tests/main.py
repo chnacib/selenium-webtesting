@@ -23,7 +23,7 @@ def test_website():
     text_box.send_keys(Keys.ENTER)
     sleep(2)
     try:
-        search_response = driver.find_element(By.Name,"result-stats")
+        search_response = driver.find_element(By.NAME,"result-stats")
         search_response = True
     except:
         search_response = False
