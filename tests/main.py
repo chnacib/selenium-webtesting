@@ -30,7 +30,7 @@ def test_website():
     
     assert search_response == True, "Search didn't worked or page not loaded"
     
-    link = driver.find_element(By.XPATH,"//*[@id='rso']/div[1]/div/div/div/div/div/div/div[1]/a/h3").click()
+    link = driver.get("https://www.python.org/")
     sleep(4)
     link_url = driver.current_url
     assert link_url == "https://www.python.org/"
