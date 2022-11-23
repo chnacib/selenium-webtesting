@@ -8,12 +8,12 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from time import sleep
-
+chrome_options =webdriver.ChromeOptions()
+chrome_options.add_argument('--no-sandbox')
+driver = webdriver.Remote('http://selenium:4444/wd/hub',options=chrome_options)
 
 def test_website():
-    chrome_options =webdriver.ChromeOptions()
-    chrome_options.add_argument('--no-sandbox')
-    driver = webdriver.Remote('http://selenium:4444/wd/hub',options=chrome_options)
+    
     remote_url = "https://www.google.com"
     driver.get(remote_url)
     driver.maximize_window()
@@ -36,8 +36,8 @@ def test_website():
     sleep(4)
     link_url = driver.current_url
     assert link_url == "https://www.python.org/"
-
-
     driver.close()
 
-test_website()
+def test_aaa():
+    testando = "oi"
+    assert testando == "oi"
