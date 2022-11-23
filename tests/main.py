@@ -11,7 +11,9 @@ from time import sleep
 
 
 def test_website():
-    driver = webdriver.Remote('http://selenium:4444/wd/hub',options=webdriver.ChromeOptions())
+    chrome_options =webdriver.ChromeOptions()
+    chrome_options.add_argument('--no-sandbox')
+    driver = webdriver.Remote('http://selenium:4444/wd/hub',options=chrome_options)
     remote_url = "https://www.google.com"
     driver.get(remote_url)
     driver.maximize_window()
