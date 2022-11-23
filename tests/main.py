@@ -18,7 +18,7 @@ def test_website():
     #check title
     title = "Google"
     assert title == driver.title
-    text_box = driver.find_element(By.Name,"q")
+    text_box = driver.find_element(By.NAME,"q")
     text_box.send_keys("python.org")
     text_box.send_keys(Keys.ENTER)
     sleep(2)
