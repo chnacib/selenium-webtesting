@@ -1,0 +1,14 @@
+name: webtesting
+on:
+  push:
+    branches:
+      - main
+jobs:
+
+  webtest:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Testing Website
+      run: bash script.sh  
