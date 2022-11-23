@@ -16,8 +16,26 @@ def test_website():
     driver.get(remote_url)
     driver.maximize_window()
     #check title
-    title = "teste"
+    title = "Google"
     assert title == driver.title
-    sleep(5)
+    text_box = driver.find_element(By.Name,"q")
+    text_box.send_keys("python.org")
+    text_box.send_keys(Keys.ENTER)
+    sleep(2)
+    try:
+        search_response = driver.find_element(By.Name,"result-stats")
+        search_response = True
+    except:
+        search_response = False
+    
+    assert search_response == True, "Search didn't worked or page not loaded"
+    
+    link = driver.find_element(By.XPATH,"//*[@id='rso']/div[1]/div/div/div/div/div/div/div[1]/a/h3").click()
+    sleep(4)
+    link_url = driver.current_url
+    assert link_url == "https://www.python.org/"
+
+
+    driver.close()
 
 test_website()
