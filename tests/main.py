@@ -18,13 +18,15 @@ def test_aaa():
     assert testando == "oi"
 
 def test_button():
-    button = driver.find_element(By.CLASS_NAME, "header-button")
-    button = "exist"
-    assert button == "exist"
-
-def test_localhost():
     driver.get("localhost:80")
     sleep(4)
-    title = "Slick - Bootstrap 4 Template"
-    assert title == driver.title
+    img = driver.find_element(By.XPATH, "//*[@id='home']/div[2]/div/div[2]/div/img")
+    img = "true"
+    assert img == "true"
+
+#def test_localhost():
+#    driver.get("localhost:80")
+#    sleep(4)
+#    title = "Slick - Bootstrap 4 Template"
+#    assert title == driver.title
 
