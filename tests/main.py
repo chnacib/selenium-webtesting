@@ -26,7 +26,7 @@ def test_aaa():
     assert testando == "oi"
 
 def test_localhost():
-    driver.get("http://127.0.0.1")
+    driver.get("localhost:80")
     sleep(2)
     title = "Slick - Bootstrap 4 Template"
     assert title == driver.title
