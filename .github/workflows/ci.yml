@@ -1,14 +1,36 @@
-name: webtesting
+name: testing-pipeline
 on:
   push:
     branches:
-      - main
+      - develop
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_KEY }}
+
 jobs:
-
-  webtest:
+  build_test_environment:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Testing Website
-      run: bash script.sh  
+      run: |
+        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 865522842129.dkr.ecr.us-east-1.amazonaws.com
+        export SHA=$(git rev-parse --short "$GITHUB_SHA")
+        docker build -f ./tests/Dockerfile -t python-webtester .
+        docker tag python-webtester 865522842129.dkr.ecr.us-east-1.amazonaws.com/python-webtester:${SHA}
+        docker push 865522842129.dkr.ecr.us-east-1.amazonaws.com/python-webtester:${SHA}
+
+  build_web_application:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Testing Website
+      run: |
+        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 865522842129.dkr.ecr.us-east-1.amazonaws.com
+        export SHA=$(git rev-parse --short "$GITHUB_SHA")
+        docker build -t website-development .
+        docker tag website-development:latest 865522842129.dkr.ecr.us-east-1.amazonaws.com/website-development:${SHA}
+        docker push 865522842129.dkr.ecr.us-east-1.amazonaws.com/website-development:${SHA} 
+
+
