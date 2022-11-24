@@ -47,9 +47,9 @@ jobs:
           docker pull selenium/standalone-chrome
           docker network create testing
           docker run --name selenium --network testing -dp 4444:4444 --shm-size="2g" selenium/standalone-chrome
-          docker run -dp 80:80 865522842129.dkr.ecr.us-east-1.amazonaws.com/website-development:${SHA}
+          docker run --network testing -dp 80:80 865522842129.dkr.ecr.us-east-1.amazonaws.com/website-development:${SHA}
           sleep 15
-          docker run 865522842129.dkr.ecr.us-east-1.amazonaws.com/python-webtester:${SHA}
+          docker run --network testing 865522842129.dkr.ecr.us-east-1.amazonaws.com/python-webtester:${SHA}
           
  
 
