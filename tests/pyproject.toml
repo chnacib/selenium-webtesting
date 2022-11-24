@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "selenium-webtesting"
+version = "0.1.0"
+description = ""
+authors = ["chnacib <carlos_henrique190@yahoo.com.br>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+selenium = "^4.6.0"
+pytest = "^7.2.0"
+pytest-xdist = "^3.0.2"
+autopep8 = "^2.0.0"
+flake8 = "^5.0.4"
+webdriver-manager= "3.8.5"
+urllib3= "1.26.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
