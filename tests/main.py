@@ -12,14 +12,6 @@ chrome_options =webdriver.ChromeOptions()
 chrome_options.add_argument('--no-sandbox')
 driver = webdriver.Remote('http://selenium:4444/wd/hub',options=chrome_options)
 
-def test_website():   
-    remote_url = "https://www.google.com"
-    driver.get(remote_url)
-    driver.maximize_window()
-    #check title
-    sleep(2)
-    title = "Google"
-    assert title == driver.title
   
 def test_aaa():
     testando = "oi"
