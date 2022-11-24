@@ -12,32 +12,22 @@ chrome_options =webdriver.ChromeOptions()
 chrome_options.add_argument('--no-sandbox')
 driver = webdriver.Remote('http://selenium:4444/wd/hub',options=chrome_options)
 
-def test_website():
-    
+def test_website():   
     remote_url = "https://www.google.com"
     driver.get(remote_url)
     driver.maximize_window()
     #check title
+    sleep(2)
     title = "Google"
     assert title == driver.title
-    text_box = driver.find_element(By.NAME,"q")
-    text_box.send_keys("python.org")
-    text_box.send_keys(Keys.ENTER)
-    sleep(2)
-    try:
-        search_response = driver.find_element(By.ID,"result-stats")
-        search_response = True
-    except:
-        search_response = False
-    
-    assert search_response == True, "Search didn't worked or page not loaded"
-    
-    link = driver.get("https://www.python.org/")
-    sleep(4)
-    link_url = driver.current_url
-    assert link_url == "https://www.python.org/"
-    driver.close()
-
+  
 def test_aaa():
     testando = "oi"
     assert testando == "oi"
+
+def test_localhost():
+    driver.get("127.0.0.1:80")
+    sleep(2)
+    title = "Slick - Bootstrap 4 Template"
+    assert title == driver.title
+

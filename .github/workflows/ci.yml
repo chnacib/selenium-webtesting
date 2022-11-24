@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Testing Website
+    - name: Build Webtester
       run: |
         aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 865522842129.dkr.ecr.us-east-1.amazonaws.com
         export SHA=$(git rev-parse --short "$GITHUB_SHA")
@@ -25,12 +25,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Testing Website
+    - name: Build Website
       run: |
         aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 865522842129.dkr.ecr.us-east-1.amazonaws.com
         export SHA=$(git rev-parse --short "$GITHUB_SHA")
         docker build -t website-development .
         docker tag website-development:latest 865522842129.dkr.ecr.us-east-1.amazonaws.com/website-development:${SHA}
         docker push 865522842129.dkr.ecr.us-east-1.amazonaws.com/website-development:${SHA} 
+  
+  selenium_testing:
+    needs: [build_test_environment,build_web_application]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Testing
+        run: |
+          export SHA=$(git rev-parse --short "$GITHUB_SHA")
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 865522842129.dkr.ecr.us-east-1.amazonaws.com
+          docker pull 865522842129.dkr.ecr.us-east-1.amazonaws.com/website-development:${SHA}
+          docker pull 865522842129.dkr.ecr.us-east-1.amazonaws.com/python-webtester:${SHA}
+          docker pull selenium/standalone-chrome
+          docker network create testing
+          docker run --name selenium --network testing -dp 4444:4444 --shm-size="2g" selenium/standalone-chrome
+          docker run -dp 80:80 865522842129.dkr.ecr.us-east-1.amazonaws.com/website-development:${SHA}
+          sleep 15
+          docker run 865522842129.dkr.ecr.us-east-1.amazonaws.com/python-webtester:${SHA}
+          
+ 
+
+          
 
 
