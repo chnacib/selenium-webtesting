@@ -17,9 +17,14 @@ def test_aaa():
     testando = "oi"
     assert testando == "oi"
 
+def test_button():
+    button = driver.find_element(By.CLASS_NAME, "header-button")
+    button = "exist"
+    assert button == "exist"
+
 def test_localhost():
     driver.get("localhost:80")
-    sleep(2)
+    sleep(4)
     title = "Slick - Bootstrap 4 Template"
     assert title == driver.title
 
