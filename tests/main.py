@@ -20,7 +20,7 @@ def test_aaa():
 def test_button():
     driver.get("localhost:80")
     sleep(4)
-    head = driver.find_element(By.XPATH, "/html/body/header/div[2]/div/div[1]/div/h2")
+    head = driver.find_element(By.ID, "home")
     head = "true"
     assert head == "true"
 
